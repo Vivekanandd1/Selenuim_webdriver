@@ -10,7 +10,7 @@ public class _7_SpiceJet {
 	static WebDriver driver;
 	public static void main(String[] args) {
 		driver  = new ChromeDriver();
-		driver.manage().window().maximize();
+		driver.manage().window().fullscreen();
 		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 		driver.get("https://www.spicejet.com/");
