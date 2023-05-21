@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -23,6 +24,8 @@ public class ScreensShotCapturing {
         File src = ts.getScreenshotAs(OutputType.FILE);
         File path = new File("src\\test\\java\\ScreenShots\\sct2"+LocalDate.now()+".jpg");
         FileUtils.copyFile(src, path);
+        driver.quit();
+        
 		
 		
 	}

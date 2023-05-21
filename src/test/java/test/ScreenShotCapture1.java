@@ -1,6 +1,11 @@
 package test;
 
 import java.io.File;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -14,8 +19,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.google.common.io.Files;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 
 public class ScreenShotCapture1 {
 	
@@ -26,12 +33,13 @@ public class ScreenShotCapture1 {
 	@Before 
 	public void setup()
 	{
+		WebDriverManager.chromedriver().setup(); 
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
-		driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		driver.get(url);
-		wait  = new WebDriverWait(driver, 30);
+		wait = new WebDriverWait(driver,Duration.ofSeconds(30));
 		
 	}
 	
@@ -45,8 +53,8 @@ public class ScreenShotCapture1 {
 		SearchButton.click();
 		
 		wait.until(ExpectedConditions.titleContains("Amazon.in : Laptop"));
-		screenshotCapture(driver,"Amazon_Laptop");
 		
+		screenshotCapture1(driver,"amazon_laptop");	
 		
 	}
 	
@@ -57,12 +65,14 @@ public class ScreenShotCapture1 {
 		driver.quit();
 	}
 
-	private void screenshotCapture(WebDriver driver, String filenametoBe) {
+	private void screenshotCapture1(WebDriver driver, String filenametoBe) {
 	File file = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 	
 		try
 		{
-			Files.copy(file, new File( System.getProperty("user.dir") + "/src/test/java/ScreenShots/" + filenametoBe + System.currentTimeMillis()+".jpg"));
+//			Files.copy(file, new File( System.getProperty("user.dir") + "/src/test/java/ScreenShots/" + filenametoBe + System.currentTimeMillis()+".jpg"));
+
+			Files.copy(file, new File( System.getProperty("user.dir") + "/src/test/java/ScreenShots/" + filenametoBe +LocalDate.now() +".jpg"));
 		}
 		
 		catch(Exception e)

@@ -2,6 +2,8 @@ package test;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -18,6 +20,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.common.io.Files;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 public class ScreenShotCapture {
 
 	WebDriver driver;
@@ -28,12 +32,13 @@ public class ScreenShotCapture {
 	@Before
 	public void setup()
 	{
+		WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		driver.get(url);
-		wait = new WebDriverWait(driver, 15);
+		wait = new WebDriverWait(driver,Duration.ofSeconds(30));
 		
 	}
 	
@@ -70,7 +75,8 @@ public class ScreenShotCapture {
 			
 			// 3. Transferring the screenshot without hard coding (advisable to be used like this)
 			Files.copy(file, new File( System.getProperty("user.dir") + "/src/test/java/ScreenShots/" + fileNameToBe + System.currentTimeMillis()+".jpg"));
-			
+			//Getting image saved by date name
+//			Files.copy(file, new File( System.getProperty("user.dir") + "/src/test/java/ScreenShots/" + fileNameToBe + LocalDateTime.now()+".jpg"));
 		} catch (IOException e) {
 			
 			e.printStackTrace();
