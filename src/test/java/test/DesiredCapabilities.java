@@ -7,6 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 
 public class DesiredCapabilities {
@@ -16,11 +20,12 @@ public class DesiredCapabilities {
 	@Before
 	public void setUp()
 	{
-		//org.openqa.selenium.remote.DesiredCapabilities cap = new org.openqa.selenium.remote.DesiredCapabilities();
-		org.openqa.selenium.remote.DesiredCapabilities cap  = new org.openqa.selenium.remote.DesiredCapabilities();
-		cap.setAcceptInsecureCerts(true);
-		///cap.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
-		driver = new ChromeDriver(cap);
+		WebDriverManager.chromedriver().setup();
+//		DesiredCapabilities cap = new DesiredCapabilities();
+		
+		ChromeOptions ops = new ChromeOptions();
+	    ops.setAcceptInsecureCerts(true);
+		driver = new ChromeDriver(ops);
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);

@@ -17,8 +17,9 @@ public class _8_Newtab {
 		driver.get("https://www.google.co.in/");
 		JavascriptExecutor jse = (JavascriptExecutor)driver;
 		jse.executeScript("window.open()");
+		jse.executeScript("window.open()");
 		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-		driver.switchTo().window(tabs.get(1));
+		driver.switchTo().window(tabs.get(2));
 
 	}
 
